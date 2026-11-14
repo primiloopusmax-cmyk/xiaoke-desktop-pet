@@ -1,0 +1,25 @@
+# 依赖与打包产物
+node_modules/
+dist/
+out/
+release/
+*.zip
+*.exe
+*.asar
+
+# 本机数据与密钥（程序运行时存在 %APPDATA%\小克\，不应出现在仓库里）
+.env
+.env.*
+config.json
+settings.json
+profile.json
+memory.json
+history.json
+*.bak-xiaoke-*
+
+# 日志与系统文件
+*.log
+npm-debug.log*
+Thumbs.db
+desktop.ini
+.DS_Store

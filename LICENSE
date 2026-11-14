@@ -1,0 +1,43 @@
+本仓库分两部分授权 / This repository is licensed in two parts.
+
+1. 代码 / Code — MIT License
+   除下面第 2 条列出的美术素材外，仓库里的所有文件都按 MIT 许可证授权。
+   Everything except the artwork listed in section 2 is licensed under the MIT License.
+
+2. 美术素材 / Artwork — 保留所有权利 / All rights reserved
+   - packs/xiaoke/img/
+   - packs/xiaoke/memes/
+   - packs/xiaoke/masks.js（由上面的图片生成的轮廓数据 / outline data generated from the images above）
+   - icon.png
+   这些素材可以随本项目一起使用和分发，但未经许可，不得单独提取、修改、再发布或用于商业用途。
+   You may use and redistribute these files only as part of this project. You may not extract,
+   modify, republish or use them commercially on their own without permission.
+
+   「小克」是 Claude 的非官方粉丝向形象。Claude 及其标志是 Anthropic 的商标，DeepSeek 是其各自所有者的商标；
+   本项目与 Anthropic、DeepSeek 没有任何关联，也未获得它们的认可。
+   "XiaoKe" is an unofficial fan character. Claude and its logo are trademarks of Anthropic; DeepSeek is a
+   trademark of its respective owner. This project is not affiliated with or endorsed by either company.
+
+---------------------------------------------------------------------------
+
+MIT License
+
+Copyright (c) 2026 Primilo (primiloopusmax-cmyk)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

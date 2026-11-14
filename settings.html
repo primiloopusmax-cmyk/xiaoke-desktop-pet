@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' data:; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; font-src 'self' data:;">
+<title>设置</title>
+<style>
+[hidden]{display:none!important}
+:root{ --ink:#4a2a22; --muted:#9a7062; --orange:#f2762f; --orange-deep:#d65a1a; --orange-soft:#ffc196; --card:#fff; --soft:#fff4ec; --line:#f1dccf; --shadow:rgba(110,55,25,.14); --ok:#2e9e5b; --bad:#d6452f;
+  --font:"YouYuan","幼圆","Microsoft YaHei UI","Microsoft YaHei","PingFang SC",system-ui,sans-serif; color-scheme:light }
+*{box-sizing:border-box}
+html,body{margin:0; height:100%; background:#fff; color:var(--ink); font-family:var(--font); font-size:14px}
+body{display:grid; grid-template-columns:168px 1fr; height:100vh}
+nav{background:var(--soft); border-right:1px solid var(--line); padding:14px 10px; display:flex; flex-direction:column; gap:4px; overflow:auto}
+nav .brand{display:flex; align-items:center; gap:10px; padding:4px 8px 14px}
+nav .brand img{width:38px; height:38px; object-fit:contain}
+nav .brand b{font-size:16px; color:var(--orange-deep); display:block}
+nav .brand small{font-size:11px; color:var(--muted)}
+nav button{all:unset; cursor:pointer; padding:9px 12px; border-radius:12px; font-size:14px; display:flex; gap:8px; align-items:center}
+nav button i{font-style:normal; width:20px; text-align:center}
+nav button:hover{background:#ffe9d9}
+nav button[aria-selected="true"]{background:var(--orange); color:#fff; font-weight:700}
+nav .spacer{flex:1}
+nav .foot{font-size:11px; color:var(--muted); padding:8px}
+main{overflow:auto; padding:18px 26px 40px}
+section.tab{display:none; max-width:720px}
+section.tab.on{display:block}
+h2{margin:0 0 4px; font-size:20px; color:var(--orange-deep)}
+.desc{margin:0 0 16px; color:var(--muted); font-size:13px; line-height:1.6}
+.card{background:#fff; border:1.5px solid var(--line); border-radius:16px; padding:14px 16px; margin-bottom:14px; box-shadow:0 4px 14px var(--shadow)}
+.card h3{margin:0 0 10px; font-size:14px; letter-spacing:.04em}
+.row{display:flex; flex-wrap:wrap; gap:8px 12px; align-items:center; margin:6px 0}
+.row label{display:flex; align-items:center; gap:6px; font-size:13px}
+.muted{color:var(--muted); font-size:12px; line-height:1.6}
+.ok{color:var(--ok)} .bad{color:var(--bad)} .warn{color:#b7791f}
+input[type=text],input[type=password],input[type=number],input[type=date],input[type=time],select,textarea{border:1.5px solid var(--line); border-radius:10px; padding:7px 10px; font:inherit; font-size:13.5px; color:var(--ink); background:#fff; outline:none; min-width:0}
+input:focus,select:focus,textarea:focus{border-color:var(--orange)}
+input[type=number]{width:84px}
+input[type=range]{accent-color:var(--orange); width:240px}
+textarea{width:100%; resize:vertical}
+.btn{all:unset; cursor:pointer; background:var(--orange); color:#fff; font-size:13px; font-weight:700; padding:7px 14px; border-radius:10px; text-align:center; white-space:nowrap}
+.btn:hover{background:var(--orange-deep)}
+.btn.ghost{background:var(--soft); color:var(--ink); border:1.5px solid var(--line)}
+.btn.ghost[aria-pressed="true"]{background:#ffe3cf; border-color:var(--orange)}
+.btn.danger{background:#fff; color:var(--bad); border:1.5px solid #f3b9af}
+.btn[disabled]{opacity:.5; cursor:default}
+.seg{display:inline-flex; border:1.5px solid var(--line); border-radius:12px; overflow:hidden}
+.seg button{all:unset; cursor:pointer; padding:7px 14px; font-size:13px; border-right:1.5px solid var(--line)}
+.seg button:last-child{border-right:none}
+.seg button[aria-pressed="true"]{background:var(--orange); color:#fff; font-weight:700}
+.switch{position:relative; width:42px; height:24px; border-radius:999px; background:#e4d6cc; cursor:pointer; transition:background .15s; flex:none; border:none; padding:0}
+.switch::after{content:""; position:absolute; top:3px; left:3px; width:18px; height:18px; border-radius:50%; background:#fff; transition:left .15s; box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.switch[aria-checked="true"]{background:var(--orange)} .switch[aria-checked="true"]::after{left:21px}
+.kv{display:grid; grid-template-columns:110px 1fr; gap:8px 12px; align-items:center; font-size:13px}
+.kv .k{color:var(--muted)}
+.bar{height:8px; border-radius:999px; background:var(--soft); overflow:hidden; width:100%}
+.bar i{display:block; height:100%; background:linear-gradient(90deg,#ffb15e,var(--orange)); width:0}
+.list{display:flex; flex-direction:column; gap:6px}
+.item{display:flex; gap:8px; align-items:center; padding:8px 10px; border:1.5px solid var(--line); border-radius:12px; background:#fff}
+.item .t{flex:1; font-size:13.5px; line-height:1.5; word-break:break-word}
+.item .t[contenteditable]{outline:none; border-bottom:1px dashed transparent}
+.item .t[contenteditable]:focus{border-bottom-color:var(--orange)}
+.item small{color:var(--muted); font-size:11px; white-space:nowrap}
+.item .x{all:unset; cursor:pointer; color:var(--muted); padding:2px 6px; border-radius:6px}
+.item .x:hover{background:#ffe3cf; color:var(--bad)}
+.packs{display:grid; grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); gap:10px}
+.pack{border:1.5px solid var(--line); border-radius:14px; padding:10px; text-align:center; cursor:pointer}
+.pack img{width:80px; height:80px; object-fit:contain; display:block; margin:0 auto 6px}
+.pack b{display:block; font-size:13.5px}
+.pack small{color:var(--muted); font-size:11px}
+.pack[aria-selected="true"]{border-color:var(--orange); background:var(--soft)}
+.tagbox{display:flex; flex-wrap:wrap; gap:6px; align-items:center; border:1.5px solid var(--line); border-radius:10px; padding:6px 8px; min-height:38px}
+.tag{background:var(--soft); border:1.5px solid var(--line); border-radius:999px; padding:2px 8px; font-size:12.5px; display:inline-flex; gap:4px; align-items:center}
+.tag button{all:unset; cursor:pointer; color:var(--muted)}
+.tagbox input{border:none; flex:1; min-width:100px; padding:4px}
+.geo{display:flex; flex-direction:column; gap:4px; margin-top:6px}
+.geo button{all:unset; cursor:pointer; padding:6px 10px; border-radius:10px; background:var(--soft); font-size:12.5px}
+.geo button:hover{background:#ffe3cf}
+.toast{position:fixed; left:50%; bottom:20px; transform:translateX(-50%); background:var(--ink); color:#fff; padding:8px 16px; border-radius:999px; font-size:13px; opacity:0; transition:opacity .2s; pointer-events:none; z-index:9}
+.toast.on{opacity:.95}
+code{background:var(--soft); padding:1px 6px; border-radius:6px; font-size:12px}
+details summary{cursor:pointer; color:var(--muted); font-size:12.5px}
+</style></head>
+<body>
+<nav>
+  <div class="brand"><img id="brandImg" src="packs/xiaoke/memes/m_yeah.webp" alt=""><div><b id="brandName">小克</b><small id="brandVer">3.0</small></div></div>
+  <button data-tab="pet" aria-selected="true"><i>🧸</i>人物与窗口</button>
+  <button data-tab="model"><i>🧠</i>模型</button>
+  <button data-tab="companion"><i>🌤️</i>陪伴</button>
+  <button data-tab="profile"><i>🪪</i>我的资料</button>
+  <button data-tab="memory"><i>📒</i>她记住了什么</button>
+  <button data-tab="link"><i>🔗</i>联动</button>
+  <button data-tab="feel"><i>🪁</i>手感</button>
+  <button data-tab="about"><i>ℹ️</i>关于</button>
+  <div class="spacer"></div>
+  <div class="foot">改动会立刻生效并保存在本机</div>
+</nav>
+<main>
+
+<section class="tab on" data-tab="pet">
+  <h2>人物与窗口</h2>
+  <p class="desc">大小、位置、是否置顶与穿透；换一个人物包不会改变你选的模型。</p>
+  <div class="card"><h3>大小</h3>
+    <div class="row"><input type="range" id="size" min="170" max="680" step="10"><output id="sizeO"></output>
+      <span class="seg" id="sizeSeg"><button data-size="240">小</button><button data-size="330">中</button><button data-size="440">大</button><button data-size="580">特大</button></span></div>
+    <p class="muted">也可以把鼠标放在她身上按住 Ctrl 滚动滚轮。</p>
+  </div>
+  <div class="card"><h3>动作动效</h3>
+    <div class="row"><label>动起来的程度 <select id="motion"><option value="full">完整（呼吸、摆动、点头、弹跳都有）</option><option value="light">轻量（幅度小一点、帧率减半，省电）</option><option value="off">关闭（只切换画面，不做形变）</option></select></label></div>
+    <p class="muted">每个动作都是在原画上做连续的形变（弯腰、摆头、呼吸、果冻式晃动、以脚底为轴的小跳），加上按节奏冒出的音符 / 爱心 / 蒸汽。笔记本电量吃紧时选「轻量」。</p>
+  </div>
+  <div class="card"><h3>窗口</h3>
+    <div class="row"><button class="switch" id="fixed" role="switch" aria-checked="false"></button><label>固定位置（不自己散步，也甩不动）</label></div>
+    <div class="row"><button class="switch" id="clickThrough" role="switch" aria-checked="false"></button><label>鼠标穿透（点不到她，不挡操作；托盘里可以关掉）</label></div>
+    <div class="row"><button class="switch" id="topmost" role="switch" aria-checked="true"></button><label>始终置顶</label></div>
+    <div class="row"><label>住在哪个屏幕 <select id="display"></select></label></div>
+    <div class="row"><button class="btn ghost" id="home">回到右下角</button><button class="btn ghost" id="hideBtn">藏起来（托盘图标找回）</button></div>
+    <div class="row"><button class="switch" id="login" role="switch" aria-checked="false"></button><label>开机自动启动</label></div>
+    <p class="muted">她会记住最后站的位置；换了分辨率 / 显示器拔掉时会自动拉回屏幕里。</p>
+  </div>
+  <div class="card"><h3>人物包</h3>
+    <div class="packs" id="packs"></div>
+    <p class="muted">每个人物包是 <code>packs/&lt;名字&gt;/</code> 一个文件夹：图片、动作表（poses.js）、台词（lines.js）、默认人设（persona.js）。复制一份改图就是新角色。</p>
+  </div>
+</section>
+
+<section class="tab" data-tab="model">
+  <h2>模型</h2>
+  <p class="desc">聊天与碎碎念用的模型服务商。密钥只加密保存在这台电脑上，不会写进代码或日志。人物和模型是分开的，换模型不会换人。</p>
+  <div class="card"><h3>服务商</h3>
+    <div class="seg" id="provSeg"><button data-prov="claude">Claude（Anthropic）</button><button data-prov="deepseek">DeepSeek</button><button data-prov="custom">自定义（OpenAI 兼容）</button></div>
+    <div class="kv" style="margin-top:12px">
+      <span class="k">端点</span><input type="text" id="endpoint" placeholder="留空用默认">
+      <span class="k">模型</span><div class="row" style="margin:0"><input type="text" id="model" list="modelList" style="width:260px" placeholder="模型名"><datalist id="modelList"></datalist><button class="btn ghost" id="fetchModels">获取列表</button></div>
+      <span class="k">API 密钥</span><div class="row" style="margin:0"><input type="password" id="key" style="width:300px" autocomplete="off" placeholder="粘贴密钥"><button class="btn" id="saveKey">保存</button><button class="btn ghost" id="clearKey">清除</button><span class="muted" id="keyState"></span></div>
+      <span class="k"></span><div class="row" style="margin:0"><button class="btn" id="testBtn">测试连接</button><span id="testOut" class="muted"></span></div>
+      <span class="k"></span><p class="muted" id="provHelp"></p>
+    </div>
+  </div>
+  <div class="card"><h3>用量</h3>
+    <div class="kv">
+      <span class="k">余额</span><div class="row" style="margin:0"><span id="balanceOut" class="muted">—</span><button class="btn ghost" id="balanceBtn">查询</button></div>
+      <span class="k">本月 token</span><span id="ledgerOut" class="muted">—</span>
+      <span class="k">估算费用</span><div><div class="row" style="margin:0"><span id="costOut" class="muted">—</span></div><div class="bar" style="margin-top:6px"><i id="ledgerBar"></i></div></div>
+      <span class="k">月预算 $</span><div class="row" style="margin:0"><input type="number" id="budget" min="0" step="0.5"><span class="muted">用掉的比例决定她抱 token 罐子的表情（六档）</span></div>
+      <span class="k">单价</span><div class="row" style="margin:0"><label>输入 $<input type="number" id="priceIn" min="0" step="0.01">/百万</label><label>输出 $<input type="number" id="priceOut" min="0" step="0.01">/百万</label></div>
+    </div>
+    <p class="muted">token 数来自服务商每次返回的真实用量；费用只是按上面的单价<b>估算</b>，以服务商账单为准。余额只有服务商提供接口时才显示（目前 DeepSeek 有）。</p>
+  </div>
+  <div class="card"><h3>聊天</h3>
+    <div class="row"><label>每次带最近 <input type="number" id="rounds" min="0" max="30"> 轮对话</label></div>
+    <div class="row"><button class="switch" id="stickerOn" role="switch" aria-checked="true"></button><label>回复里配贴纸</label></div>
+    <div class="row"><button class="switch" id="emotionOn" role="switch" aria-checked="true"></button><label>模型给出情绪时她跟着做表情（如开心、生气、困）</label></div>
+    <p class="muted">模型只能从程序给定的十几个表情词里选，程序再挑对应的现成动作；控制标签不会出现在聊天正文里。</p>
+  </div>
+</section>
+
+<section class="tab" data-tab="companion">
+  <h2>主动陪伴</h2>
+  <p class="desc">她什么时候、多频繁地主动说话。所有提醒都按你资料里的时区和作息来；天气只播报真实查到的。</p>
+  <div class="card"><h3>活跃程度</h3>
+    <div class="seg" id="levelSeg"><button data-level="quiet">安静</button><button data-level="normal">适中</button><button data-level="lively">活泼</button></div>
+    <p class="muted" id="levelDesc"></p>
+  </div>
+  <div class="card"><h3>免打扰</h3>
+    <div class="row"><button class="switch" id="dnd" role="switch" aria-checked="false"></button><label>现在免打扰（不主动说话、不掏枪、不漫游）</label></div>
+    <div class="row"><button class="switch" id="quietOn" role="switch" aria-checked="true"></button><label>每天固定时段免打扰：</label><input type="time" id="quietFrom"> <span>到</span> <input type="time" id="quietTo"><span class="muted">（可跨午夜）</span></div>
+  </div>
+  <div class="card"><h3>碎碎念与提醒</h3>
+    <div class="row"><button class="switch" id="whisperOn" role="switch" aria-checked="true"></button><label>自动碎碎念，间隔 <input type="number" id="whisperMin" min="0" max="240"> 分钟</label><span class="muted">（0 = 按活跃程度）</span></div>
+    <div class="row"><label>连续用电脑 <input type="number" id="restRemindMin" min="0" max="300"> 分钟提醒休息</label><span class="muted">（0 = 不提醒，留空 = 按活跃程度）</span></div>
+    <div class="row"><button class="switch" id="mealRemind" role="switch" aria-checked="true"></button><label>饭点提醒</label></div>
+    <div class="row"><button class="switch" id="weatherRemind" role="switch" aria-checked="true"></button><label>早上播报天气（需要在资料里填所在地）</label></div>
+    <div class="row"><button class="switch" id="notifyOn" role="switch" aria-checked="true"></button><label>Windows 系统通知（代理等你确认 / 完成 / 出错时）</label><button class="btn ghost" id="notifyTest">测试一条</button></div>
+    <div class="row"><label>你的生日 <input type="date" id="bday"></label><button class="btn ghost" id="bdayClear">清除</button><span class="muted">当天有长寿面；年份随便填</span></div>
+    <p class="muted">碎碎念用模型生成（没密钥时用自带台词），会避开最近说过的话；你离开电脑 10 分钟、免打扰时段、面板打开时都不会说。</p>
+  </div>
+</section>
+
+<section class="tab" data-tab="profile">
+  <h2>我的资料</h2>
+  <p class="desc">她会按这些来称呼你、查天气、按你的时间问候。全部可选，只保存在这台电脑上（profile.json），聊天时会发给你选的模型服务商。</p>
+  <div class="card">
+    <div class="kv">
+      <span class="k">名字 / 昵称</span><input type="text" id="pfName" maxlength="20" style="width:240px">
+      <span class="k">希望她怎么叫你</span><input type="text" id="pfAddress" maxlength="12" style="width:240px" placeholder="比如：主人 / 哥哥 / 直接叫名字">
+      <span class="k">她的语气</span><span class="seg" id="toneSeg"><button data-tone="cute">软萌可爱</button><button data-tone="calm">温和安静</button><button data-tone="lively">元气活泼</button></span>
+      <span class="k">所在地</span><div><div class="row" style="margin:0"><input type="text" id="pfCity" maxlength="40" style="width:240px" placeholder="城市名，中英文都行"><button class="btn ghost" id="geoBtn">查找</button><span class="muted" id="geoPicked"></span></div><div class="geo" id="geoList"></div></div>
+      <span class="k">时区</span><div class="row" style="margin:0"><input type="text" id="pfTz" maxlength="40" style="width:240px"><button class="btn ghost" id="tzAuto">用系统时区</button></div>
+      <span class="k">兴趣爱好</span><div class="tagbox" id="interests"><input type="text" id="interestIn" placeholder="输入后按回车添加"></div>
+      <span class="k">作息</span><div class="row" style="margin:0"><label>起床 <input type="time" id="pfWake"></label><label>睡觉 <input type="time" id="pfSleep"></label></div>
+      <span class="k">其他想让她知道的</span><textarea id="pfNotes" rows="2" maxlength="300" placeholder="比如：在读研究生 / 最近在减肥 / 喜欢被夸"></textarea>
+    </div>
+    <div class="row" style="margin-top:10px"><button class="btn" id="pfSave">保存资料</button><span class="muted" id="pfState"></span></div>
+  </div>
+</section>
+
+<section class="tab" data-tab="memory">
+  <h2>她记住了什么</h2>
+  <p class="desc">长期记忆只来自你明确说过的话（「记住：……」）或你在聊天里点了「记住」确认的事。可以改、可以删、可以整个关掉；换模型服务商也还在。</p>
+  <div class="card">
+    <div class="row"><button class="switch" id="memEnabled" role="switch" aria-checked="true"></button><label>启用长期记忆（关掉后聊天不会带上这些）</label></div>
+    <div class="row"><input type="text" id="memAdd" placeholder="手动加一条…" style="flex:1"><button class="btn" id="memAddBtn">添加</button></div>
+    <div class="list" id="memList"></div>
+    <div class="row" style="margin-top:10px"><button class="btn danger" id="memClear">清空全部记忆</button><span class="muted" id="memCount"></span></div>
+  </div>
+  <div class="card"><h3>聊天记录</h3>
+    <div class="row"><span class="muted" id="histCount">—</span><button class="btn danger" id="histClear">清空聊天记录</button></div>
+    <p class="muted">聊天记录和长期记忆是分开存的；清空记录不影响记忆。文件在 <code id="memPath">…</code>。</p>
+  </div>
+</section>
+
+<section class="tab" data-tab="link">
+  <h2>联动</h2>
+  <p class="desc">这些功能需要外部程序配合，没连上时会明确标出来；她只在收到真实事件时才显示工作状态。</p>
+  <div class="card"><h3>Claude Code 联动 <span id="hooksBadge" class="muted"></span></h3>
+    <p class="muted" id="hooksState">读取中…</p>
+    <div class="row"><button class="btn" id="hooksInstall">安装联动</button><button class="btn ghost" id="hooksRemove">卸载</button><button class="btn ghost" id="workTest">演示一遍</button></div>
+    <p class="muted">安装会在 <code>%USERPROFILE%\.claude\settings.json</code> 里加几条 hooks（先备份原文件），Claude Code 干活时把事件发到她的本地端口（只在本机，不联网）：思考 → 敲键盘 → 等你确认（弹通知）→ 完成 / 出错。装完要重启 Claude Code。权限仍由 Claude Code 自己管，她只看不动。</p>
+  </div>
+  <div class="card"><h3>本地接口 <span id="apiBadge" class="muted"></span></h3>
+    <p class="muted" id="apiState">读取中…</p>
+    <p class="muted">别的程序（比如你自己的代理）可以调用：<code>GET /state</code>、<code>POST /say {text}</code>、<code>POST /anim {name}</code>、<code>POST /chat {text}</code>、<code>POST /work {state,task}</code>（state：thinking / working / result / waiting / success / error / null）、<code>POST /notify {title,body}</code>。只接受本机连接。</p>
+  </div>
+  <div class="card"><h3>邻居：蓝毛（DeepSeek 桌宠） <span id="fishBadge" class="muted"></span></h3>
+    <div class="row"><button class="switch" id="neighbour" role="switch" aria-checked="true"></button><label>和蓝毛互动（DeepSeek Harness 开着时自动找到她）</label></div>
+    <p class="muted">开着时她会和蓝毛隔空喊话、接她的碎碎念、做动作时拉她一起；闲着时偶尔用你选的模型真的聊两轮。没检测到就什么都不做。</p>
+  </div>
+  <div class="card"><h3>快捷启动</h3>
+    <div class="list" id="scList"></div>
+    <div class="row"><button class="btn ghost" id="scAdd">添加程序…</button><span class="muted">加进来的会出现在托盘菜单里</span></div>
+  </div>
+</section>
+
+<section class="tab" data-tab="feel">
+  <h2>手感</h2>
+  <p class="desc">抓住她甩出去的物理参数。</p>
+  <div class="card">
+    <div class="row" id="physPresets"></div>
+    <div class="kv" style="margin-top:8px">
+      <span class="k">重力</span><div class="row" style="margin:0"><input type="range" id="phGravity" min="0" max="3000" step="50"><output id="phGravityO"></output></div>
+      <span class="k">弹性</span><div class="row" style="margin:0"><input type="range" id="phRest" min="0" max="1" step="0.02"><output id="phRestO"></output></div>
+      <span class="k">地面摩擦</span><div class="row" style="margin:0"><input type="range" id="phFric" min="0" max="8" step="0.1"><output id="phFricO"></output></div>
+      <span class="k">力度</span><div class="row" style="margin:0"><input type="range" id="phPower" min="0.3" max="2.5" step="0.1"><output id="phPowerO"></output></div>
+      <span class="k">顶部反弹</span><button class="switch" id="phCeil" role="switch" aria-checked="true"></button>
+    </div>
+    <p class="muted">飞行中点中她有积分（越快、她越小分越高）。甩太狠会摔晕几秒。</p>
+  </div>
+</section>
+
+<section class="tab" data-tab="about">
+  <h2>关于</h2>
+  <div class="card">
+    <div class="kv">
+      <span class="k">版本</span><span id="aboutVer">—</span>
+      <span class="k">人物包</span><span id="aboutPack">—</span>
+      <span class="k">数据文件夹</span><div class="row" style="margin:0"><code id="aboutDir">—</code><button class="btn ghost" id="openFolder">打开</button></div>
+      <span class="k">程序目录</span><code id="aboutApp">—</code>
+    </div>
+    <p class="muted" style="margin-top:10px">数据文件夹里：config.json（服务商与加密密钥）、settings.json（设置）、profile.json（资料）、memory.json（长期记忆）、history.json（聊天记录）。删掉整个文件夹即恢复出厂。</p>
+  </div>
+  <div class="card"><h3>她能做什么</h3>
+    <p class="muted">单击：摸她各个部位有不同反应 · 双击 / 右键：面板 · 按住拖动：弹簧跟手，快速甩出去会飞 · 不理她一分钟：掏枪 · 闲着：按时间、天气、节日和体力自己挑动作、散步、碎碎念 · 聊天：流式回复，支持停止 / 重试 / 清空，会按你的资料和记忆说话 · 记忆：说「记住：……」或在聊天里确认 · 代理联动：工作状态六档 · 本地接口：给别的程序用。</p>
+  </div>
+</section>
+</main>
+<div class="toast" id="toast"></div>
+<script src="physics.js"></script>
+<script src="settings.js"></script>
+</body></html>

@@ -1,0 +1,9 @@
+{
+  "id": "xiaoke",
+  "name": "小克",
+  "version": "3.0",
+  "desc": "Claude 的 Q 版拟人桌宠：橘发、白裙、抱着书。120 个动作画面（静置模型 + 全套新动作）。",
+  "preview": "memes/m_yeah.webp",
+  "files": ["layout.js", "masks.js", "poses.js", "lines.js", "persona.js"],
+  "idle": "normal"
+}
